@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LoadingMeter : MonoBehaviour {
 
-	[SerializeField] private Transform fillMeter;
+	[SerializeField] private Image fillMeter;
 
 	private float meterValue;
 	private bool isMeterFull;
@@ -20,9 +21,7 @@ public class LoadingMeter : MonoBehaviour {
 
 	public void Reset()
 	{
-		Vector3 scale = fillMeter.localScale;
-		scale.x = 0;
-		fillMeter.localScale = scale;
+		fillMeter.fillAmount = 0;
 		isMeterFull = false;
 	}
 
@@ -42,10 +41,8 @@ public class LoadingMeter : MonoBehaviour {
 		if (OnLoadMeterChangeEvent != null)
 			OnLoadMeterChangeEvent (this.meterValue);
 
-		scale.x = meterValue;
-		fillMeter.localScale = scale;
-		Debug.Log (scale.x);
-		isMeterFull = scale.x >= 1;
+		fillMeter.fillAmount = this.meterValue;
+		isMeterFull = this.meterValue >= 1;
 	}
 
 	public float MeterValue
